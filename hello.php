@@ -1,3 +1,8 @@
+<?php
+$data = json_decode(file_get_contents('http://mobile.nottingham.ac.uk/hack/data/timetabling/2015/courses'));
+$schools = $data->Courses->School;
+$courses = $data->Courses->School->Course;
+?>
 <html>
     <body>
         <form>
