@@ -34,7 +34,7 @@ $courses = $data->Courses->School->Course;
 
             <select name="year" style="width: 60px">
                 <?php
-                $startingYear = 2015;
+                $startingYear = date('Y', strtotime("-9 months"));  //2015-16 is counted as just 2015 - works out current academic year startting 1st sept;
                 $yearsToGoBack = 6;
 
                 for ($i = $startingYear; $i > $startingYear - $yearsToGoBack; $i--)
