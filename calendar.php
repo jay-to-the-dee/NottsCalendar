@@ -19,13 +19,27 @@ function getGuid($userCourseName)
         }
     }
 }
+
+require 'sql-connect.php';
+
+try
+{
+    $query = $db->prepare("SELECT * FROM user_info WHERE username=:username");
+    $query->execute(array('username' => $_REQUEST['username']));
+    $user_info = $query->fetch();
+} catch (PDOException $e)
+{
+    die($e->getMessage());
+}
+
+
 $currentAcademicYear = date('Y', strtotime("-9 months"));  //2015-16 is counted as just 2015 - works out current academic year startting 1st spet
-$userStartingYear = 2015;
+$userStartingYear = $user_info[start_year];
 
 $userInYear = $currentAcademicYear - $userStartingYear + 1;
 
 
-$COURSEGUID = getGuid("Computer Science with Artificial Intelligence 4 year UG Full time/$userInYear");
+$COURSEGUID = getGuid("$user_info[course_name]/$userInYear");
 $url = "http://mobile.nottingham.ac.uk/hack/data/timetabling/$currentAcademicYear/activities/course/$COURSEGUID";
 
 include 'calgen.php';
