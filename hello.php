@@ -1,9 +1,3 @@
-<?php
-$data = json_decode(file_get_contents('http://mobile.nottingham.ac.uk/hack/data/timetabling/2015/courses'));
-$schools = $data->Courses->School;
-$courses = $data->Courses->School->Course;
-//$select.html('');
-?>
 <html>
     <body>
         <form>
@@ -13,6 +7,7 @@ $courses = $data->Courses->School->Course;
                 <?php
                 foreach ($schools as $school)
                 {
+                    echo '<optgroup label = '.$school -> Name.'></optgroup>';
                     foreach ($school as $course)
                     {
                         if (is_array($course) || is_object($course))
@@ -22,7 +17,7 @@ $courses = $data->Courses->School->Course;
                                 $text = substr($co -> Name, 0, -2);
                                 if($text != $current)
                                 {
-                                      echo '<option>' . $text. '</option>';
+                                      echo '<option>&emsp;&emsp;' . $text. '</option>';
                                 }
                                 $current= $text;
                             }
@@ -48,4 +43,3 @@ $courses = $data->Courses->School->Course;
 
     </body>    
 </html>
-
