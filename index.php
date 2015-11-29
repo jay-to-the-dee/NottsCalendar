@@ -5,6 +5,7 @@ $courses = $data->Courses->School->Course;
 ?>
 <html>
     <body>
+        <h1 style = "color:#FF1493">Vojit!</h1>
         <form>
             <input type="text" name="username" placeholder="username"/>
 
