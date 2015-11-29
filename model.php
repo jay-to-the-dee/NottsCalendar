@@ -35,6 +35,22 @@ foreach ($modules as $module)
         $EndTime = $class->EndTime;
         $location = $class->Locations->Location;
 
+        $lecturers = $class->Staff->Person;
+        if (count($lecturers) > 1)
+        {
+            $lecturersString = "";
+            foreach ($lecturers as $lecturer)
+            {
+                //print_r($lecturer);
+                $lecturersString.=$lecturer->Name . " ";
+            }
+        }
+        else
+        {
+            $lecturersString = $lecturers->Name;
+        }
+
+
         echo "BEGIN:VEVENT\n";
 
         echoProperty("DTSTART", getIcalDate(strtotime("$date->Day-$date->Month-$date->Year $StartTime->Hours:$StartTime->Minutes")));
@@ -44,6 +60,7 @@ foreach ($modules as $module)
         echoProperty("DTSTAMP", getIcalDate(time()));
         echoProperty("SUMMARY", $class->Description);
         echoProperty("LOCATION", $location->AbbreviatedName);
+        echoProperty("DESCRIPTION", $lecturersString);
         echoProperty("UID", $class->Guid);
 
         echo "END:VEVENT\n";
